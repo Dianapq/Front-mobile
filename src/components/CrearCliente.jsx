@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import axios from "axios"
+import api from "../services/api"
 
 function CrearCliente() {
   const navigate = useNavigate()
@@ -24,19 +24,10 @@ function CrearCliente() {
 
       const token = localStorage.getItem("token")
 
-      await axios.post(
-        "http://localhost:3000/api/clientes",
-        {
-          nombre,
-          cedula,
-          telefono,
-          direccion
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+      await api.post(
+        "/clientes",
+        { nombre, cedula, telefono, direccion },
+        { headers: { Authorization: `Bearer ${token}` } }
       )
 
       alert("Cliente creado correctamente")
@@ -104,8 +95,6 @@ function CrearCliente() {
     </div>
   )
 }
-
-/* ESTILOS */
 
 const container = {
   padding: 20,
